@@ -3,6 +3,10 @@ import Logo from "../Logo"
 import Search from "../Search"
 import CartOption from "../CartOption"
 import { Button } from "../ui/button"
+import Link from "next/link"
+import SignUp from "../SignUp"
+import { auth } from "@clerk/nextjs/server"
+import { SignOutButton, UserButton } from "@clerk/nextjs"
 
 
 const Navbar = async() => {
@@ -15,6 +19,8 @@ const Navbar = async() => {
         {item:"Shoes",href:"/shoes"},
         {item:"Accessories",href:"/accessories"},
     ]
+
+    const {userId} = auth()
     return (
         <div className="flex  gap-8 text-lg items-center font-medium">
             <Logo />
@@ -27,7 +33,8 @@ const Navbar = async() => {
             <Search />
             <CartOption />
             </div>
-            <Button>SignUp</Button>
+            { userId ? (<UserButton />) : (<SignUp />)}
+            
             </div>
             
         </div>
