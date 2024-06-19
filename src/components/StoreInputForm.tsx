@@ -13,24 +13,36 @@ import CategoryList from "./CategoryList"
 const StoreInputForm = () => {
 
     const [current,setCurrent] = useState(0)
+    const [category,setCategory] =useState<string[]>([])
     const form = useForm({
         resolver: zodResolver(StoreInputValidator),
         defaultValues: {
             title: "",
             description: '',
-            category: ""
+            category: [""]
         }
     })
 
     const handleSubmit = async(data: StoreInputRequest) => {
 
-        const payload = {
+         const payload = {
             title: data.title,
             description: data.description,
-            category: data.category
+            category: data.category 
         }
 
+        console.log(payload)
 
+    }
+
+    const handleCategorySelect = (selectedCategory: string[]) => {
+        setCategory(selectedCategory)
+        form.setValue("category", selectedCategory )
+    }
+
+    const handleNext = (e: React.FormEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        setCurrent((prev) => prev + 1)
     }
     return (
         <div className="max-w-[34rem] mx-auto p-6 border-[1px] mt-[2rem] border-blue-300 bg-blue-200 rounded-md shadow-sm mb-[4rem]">
@@ -42,7 +54,7 @@ const StoreInputForm = () => {
                          name="title" 
                          render={({field}) => (
                              <FormItem>
-                                 <FormLabel className="text-lg">Store Name</FormLabel>
+                                 <FormLabel className="text-xl">Store Name</FormLabel>
                                  <FormControl>
                                      <Input placeholder="e.g. Urban Monkey" className=" focus-visible:ring-0 focus-visible:ring-offset-0" {...field}/>
                                  </FormControl>
@@ -54,11 +66,28 @@ const StoreInputForm = () => {
                     {
                         current === 1 && (
                             <FormField 
+                            control={form.control}
+                            name="category" 
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel className="text-xl">Pick a category</FormLabel>
+                                    <FormControl>
+                                        <CategoryList onCategorySelect={handleCategorySelect} {...field} />
+                                    </FormControl>
+                                    <FormDescription className="">This will help us to show your products to the relevant customers</FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}/>
+                        )
+                    }
+                    {
+                        current === 2 && (
+                            <FormField 
                          control={form.control}
                          name="description" 
                          render={({field}) => (
                              <FormItem>
-                                 <FormLabel className="text-lg">Store description</FormLabel>
+                                 <FormLabel className="text-xl">Store description</FormLabel>
                                  <FormControl>
                                      <Input placeholder="" className=" focus-visible:ring-0 focus-visible:ring-offset-0" {...field}/>
                                  </FormControl>
@@ -68,34 +97,17 @@ const StoreInputForm = () => {
                          )}/>
                         )
                     }
-                    {
-                        current === 2 && (
-                            <FormField 
-                         control={form.control}
-                         name="category" 
-                         render={({field}) => (
-                             <FormItem>
-                                 <FormLabel className="text-lg">Pick a category</FormLabel>
-                                 <FormControl>
-                                     <CategoryList />
-                                 </FormControl>
-                                 <FormDescription>This will help us to show your products to the relevant customers</FormDescription>
-                                 <FormMessage />
-                             </FormItem>
-                         )}/>
-                        )
-                    }
                     <div className="flex items-center">
                         {
                             current > 0 && (
-                                <ChevronLeft className="mr-auto w-8 h-8 hover:opacity-60" onClick={() => setCurrent((prev) => prev - 1)} />
+                                <ChevronLeft className="mr-auto w-8 h-8 hover:opacity-60 mt-[-1rem]" onClick={() => setCurrent((prev) => prev - 1)} />
                             )
                         }
                         {
                             current === 2 ? (
                                 <Button >Open store</Button>
                             ) : (
-                                <Button type="button" onClick={() => setCurrent((prev) => prev + 1)} className=" ml-auto">Next</Button>
+                                <Button type="button" onClick={handleNext} className=" ml-auto">Next</Button>
                             )
                         }
                     </div>

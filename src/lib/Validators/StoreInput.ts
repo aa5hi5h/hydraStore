@@ -7,7 +7,8 @@ export const StoreInputValidator = z.object({
     description: z.string()
     .min(1, {message:"Description must be more than a single character long"})
     .max(1024,{message:"description must be less than 1024 characters"}),
-    category: z.string().array().min(1,{message:"Please atleast choose 1"})
+    category: z.array(z.string())
+    .min(1,{message:"Pick atleast one of the categories"})
 })
 
 
