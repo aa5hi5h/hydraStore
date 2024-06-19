@@ -25,8 +25,7 @@ export default function RootLayout({
           <Navbar />
           <hr className="w-full h-[2px] mt-2 bg-sky-300"/>
           {children}
-          <hr className="w-full h-[2px] mt-2 bg-sky-300"/>
-          <Footer />
+          
           </div>
           </div>
           </body>
