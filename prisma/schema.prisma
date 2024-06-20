@@ -11,6 +11,7 @@ datasource db {
 
 model Store{
     id String @id @default(auto()) @map("_id") @db.ObjectId
+    userId String
     name String
     description String
     category String[]
@@ -28,7 +29,10 @@ model Product {
     description String
     category String[]
     userId String
-
+    price Int
+    images String
+    stock Int
+    
     store Store @relation(references: [id],fields: [storeId], onDelete: Cascade)
     storeId String @db.ObjectId
 
