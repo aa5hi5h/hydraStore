@@ -1,0 +1,47 @@
+
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url=env("DATABASE_URL")
+}
+
+model Store{
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    name String
+    description String
+    category String[]
+    image String?
+    product Product[]
+    saved Saved[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Product {
+    id String @id @default( auto()) @map("_id") @db.ObjectId
+    name String
+    description String
+    category String[]
+    userId String
+
+    store Store @relation(references: [id],fields: [storeId], onDelete: Cascade)
+    storeId String @db.ObjectId
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Saved{
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    userId String
+    saved Boolean @default(false)
+    store Store @relation(references: [id],fields: [storeId],onDelete: Cascade)
+    storeId String @db.ObjectId
+    @@index([storeId,userId])
+
+}

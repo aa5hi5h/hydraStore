@@ -9,17 +9,39 @@ import { useState } from "react"
 import { ChevronLeft } from "lucide-react"
 import { StoreInputRequest } from "@/lib/Validators/StoreInput"
 import CategoryList from "./CategoryList"
+import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
+import { useRouter } from "next/navigation"
 
 const StoreInputForm = () => {
 
     const [current,setCurrent] = useState(0)
     const [category,setCategory] =useState<string[]>([])
+
+    const router = useRouter()
     const form = useForm({
         resolver: zodResolver(StoreInputValidator),
         defaultValues: {
             title: "",
             description: '',
             category: [""]
+        }
+    })
+
+
+    const { mutate:CreateStore} = useMutation({
+        mutationFn: async(payload:StoreInputRequest) => {
+            
+            const {data} = await axios.post("/api/store",payload)
+            console.log(data)
+            return data 
+        },
+        onError: (error) => {
+            alert("to perform this action you need to be logged in")
+
+        },
+        onSuccess: (data) => {
+            router.push(`/store/${data.title}`)
         }
     })
 
@@ -31,7 +53,7 @@ const StoreInputForm = () => {
             category: data.category 
         }
 
-        console.log(payload)
+        CreateStore(payload)
 
     }
 

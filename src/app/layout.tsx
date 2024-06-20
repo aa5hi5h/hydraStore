@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/NavOptions/Navbar";
 import Footer from "@/components/Footer";
 import {ClerkProvider} from "@clerk/nextjs"
+import QueryProvider from "@/components/Providers/QueryClientProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en">
       <body className={inter.className}>
+        <QueryProvider>
         <div className="py-3 px-6 h-full w-full bg-blue-100">
           <div className="flex flex-col  max-w-7xl mx-auto">
           <Navbar />
@@ -28,6 +30,7 @@ export default function RootLayout({
           
           </div>
           </div>
+          </ QueryProvider>
           </body>
     </html>
     </ClerkProvider>
