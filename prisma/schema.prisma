@@ -12,7 +12,7 @@ datasource db {
 model Store{
     id String @id @default(auto()) @map("_id") @db.ObjectId
     userId String
-    name String
+    name String @unique
     description String
     category String[]
     image String?

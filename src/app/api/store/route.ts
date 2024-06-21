@@ -19,13 +19,14 @@ export async function POST(request:Request){
 
         const store = await db.store.create({
             data:{
+                userId,
                 name:title,
                 description,
                 category
             }
         })
 
-        return new Response(`${store}`,{status:200})
+        return new Response(JSON.stringify(store),{status:200})
 
     }catch(error){
         if(error instanceof z.ZodError){

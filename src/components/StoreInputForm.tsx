@@ -33,15 +33,15 @@ const StoreInputForm = () => {
         mutationFn: async(payload:StoreInputRequest) => {
             
             const {data} = await axios.post("/api/store",payload)
-            console.log(data)
-            return data 
+            return data
         },
         onError: (error) => {
+            console.log(error)
             alert("to perform this action you need to be logged in")
 
         },
         onSuccess: (data) => {
-            router.push(`/store/${data.title}`)
+            router.push(`/store/${data.id}`)
         }
     })
 
