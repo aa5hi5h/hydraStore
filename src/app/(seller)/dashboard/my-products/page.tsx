@@ -28,8 +28,8 @@ const Page = () => {
             <div className="p-6 mt-8 border-[1px] border-blue-300 rounded-md shadow-md">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6  ">
                     {
-                        itemsList.map((product) => (
-                            <div className=" rounded-lg">
+                        itemsList.map((product,index) => (
+                            <div key={index} className=" rounded-lg">
                             <div className="flex flex-col h-[50vh] shadow-sm w-full  ">
                                 <div className="h-[40vh] w-full flex border-blue-300 border-2 bg-blue-200 opacity-40 rounded-t-lg justify-center items-center"><Image size={36}/></div>
                                 <div className="flex flex-col p-3 border-2 border-blue-200 rounded-b-lg">

@@ -30,7 +30,7 @@ const Page = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6  ">
                     {
                         itemsList.map((product) => (
-                            <div className="border-2 border-blue-200 p-4 rounded-lg shadow-sm">
+                            <div key={product.href} className="border-2 border-blue-200 p-4 rounded-lg shadow-sm">
         <div className="flex flex-col space-y-8 cursor-pointer">
             <div className="flex justify-between items-center">
             <div className="flex flex-col space-y-1">
