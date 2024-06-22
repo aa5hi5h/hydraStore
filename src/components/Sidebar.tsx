@@ -9,8 +9,8 @@ const SideBar = () => {
     const Items = [
         {name:"Dashboard",image:Home,href:"dashboard"},
         {name:"Orders",image:ShoppingCart,href:"dashboard/orders"},
-        {name:"Stores",image:Store,href:"dashboard/store"},
-        {name:"Products", image:Container,href:'dashboard/products'},
+        {name:"Stores",image:Store,href:"dashboard/my-stores"},
+        {name:"Products", image:Container,href:'dashboard/my-products'},
         {name:"Analytics ", image:LineChart,href:"dashboard/analytics"},
     ]
     return (
