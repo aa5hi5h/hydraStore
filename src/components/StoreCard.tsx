@@ -1,10 +1,15 @@
 "use client"
-import { ArrowUpRight, Image } from "lucide-react"
+import { ArrowUpRight, Image, X } from "lucide-react"
 import ProductsCaraousel from "./ProductsCaraousel"
 import {animate, motion, useMotionValue} from "framer-motion"
 import useMeasure from "react-use-measure"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 const StoreCard = () => {
+
+   // let finsihPosition = -width -170
+
+    const FAST_DURATION = 15
+    const SLOW_DURATION = 35
 
     const itemsList = [
         {name:"Product name", image:'ItemsImage', description:'Items description',price:"Items Price",href:"/productpage"},
@@ -13,27 +18,40 @@ const StoreCard = () => {
         {name:"Product name", image:'ItemsImage', description:'Items description',price:"Items Price",href:"/productpage"},
     ]
 
+    const[mustFinish,setMustFinish] = useState(false)
+    const[render,setRender] = useState(false)
+    const [duration,setDuration] = useState(FAST_DURATION)
+
+
     let[ref,{width}] = useMeasure()
 
         const xStyles = useMotionValue(0)
 
         useEffect(() => {
-            let controls
-            let finsihPosition = -width -170
-
-            console.log(width,finsihPosition)
-
-            controls = animate(xStyles,[0,finsihPosition],{
-                ease:"linear",
-                duration: 15,
+            let clothingControls;
+            let finishPosition = -width -170;
+        
+            if (mustFinish) {
+              clothingControls = animate(xStyles, [xStyles.get(), finishPosition], {
+                ease: "linear",
+                duration: duration * (1 - xStyles.get() / finishPosition),
+                onComplete: () => {
+                  setMustFinish(false);
+                  setRender(!render)
+                },
+              });
+            } else {
+              clothingControls = animate(xStyles, [0, finishPosition], {
+                ease: "linear",
+                duration: duration,
                 repeat: Infinity,
                 repeatType: "loop",
                 repeatDelay: 0,
-        })
-
-            return controls.stop
-
-        },[xStyles,width])
+              });
+            }
+        
+            return () => clothingControls?.stop();
+          }, [xStyles, width, duration, mustFinish,render]);
 
 
     return (
@@ -45,7 +63,15 @@ const StoreCard = () => {
                 <h1 className="text-2xl font-bold tracking-tight ">Products</h1>
                 <div className=" flex gap-[4rem] px-2 py-8 ">
                 <div className="overflow-hidden">
-                <motion.div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-8 px-4" ref={ref} style={{x:xStyles}} >
+                <motion.div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-8 px-4" ref={ref} style={{x:xStyles}}
+                onHoverStart={() => {
+                    setMustFinish(true)
+                    setDuration(SLOW_DURATION)
+                }}
+                onHoverEnd={() => {
+                    setDuration(FAST_DURATION)
+                    setMustFinish(true)
+                }} >
                     <div className="flex gap-8">
                     {
                         [...itemsList,...itemsList].map((product,index) => (
