@@ -44,33 +44,19 @@ const ProductsCaraousel = ({name,description,price,image,href}:ProductsCaraousel
 
 
     return (
-        <div>
-        <div className="rounded-lg">
-        <div className="flex flex-col h-[50vh] shadow-sm w-full  ">
+        <div className="relative overflow-hidden  h-[50vh] min-w-[37vh]">
+        <div className="rounded-lg ">
+        <div className="flex flex-col h-[50vh] shadow-sm w-[37vh]   ">
             <div className="h-[40vh] w-full flex border-blue-300 border-2 bg-blue-200 opacity-40 rounded-t-lg justify-center items-center"><Image size={36}/></div>
             <div className="flex flex-col p-3 border-2 border-blue-200 rounded-b-lg">
             <h2 className="  text-xl font-semibold tracking-tight">{name}</h2>
             <h3 className="  text-sm font-medium ">{price}</h3>
             <div className="flex justify-between w-full gap-2 items-center mt-4">
-                <Button variant={"outline"} className="w-[90%] bg-blue-200 hover:bg-blue-300 transition-all" >Add to cart</Button>
-                <Eye onClick={toggleModal} className="hover:opacity-60 cursor-pointer " />
+                <Button variant={"outline"} className="w-full bg-blue-200 hover:bg-blue-300 transition-all" >Add to cart</Button>
             </div>
             </div>
         </div>
         </div>
-        {
-            isOpen && (
-                <div className="fixed inset-0 z-10 bg-blue-100 bg-opacity-60" onClick={CloseModal}></div>
-            )
-        }
-        {isOpen ?
-        ( 
-        <div className="fixed inset-0 z-50 m-auto  h-[70vh] rounded-lg  w-[120vh] bg-blue-200 ">
-            <div className="w-full h-full" onClick={(e) => e.stopPropagation()}>
-        <ProductPreview CloseModal={CloseModal}  />
-        </div>
-        </div>
-        ) : null}
         </div>
     )
 }

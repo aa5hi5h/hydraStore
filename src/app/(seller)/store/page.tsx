@@ -14,14 +14,8 @@ const Page = () => {
         {name:"Store Name", description:'Shop description',products:"10",href:"/storepage"},
         {name:"Store Name", description:'Shop description',products:"10",href:"/storepage"},
         {name:"Store Name", description:'Shop description',products:"10",href:"/storepage"},
+        {name:"Store Name", description:'Shop description',products:"10",href:"/storepage"},
     ]
-
-        const itemsList = [
-            {name:"Product name", image:'ItemsImage', description:'Items description',price:"Items Price",href:"/productpage"},
-            {name:"Product name", image:'ItemsImage', description:'Items description',price:"Items Price",href:"/productpage"},
-            {name:"Product name", image:'ItemsImage', description:'Items description',price:"Items Price",href:"/productpage"},
-            {name:"Product name", image:'ItemsImage', description:'Items description',price:"Items Price",href:"/productpage"},
-        ]
     return (
         <div className="flex flex-col p-6">
             <h1 className="text-2xl font-bold tracking-tight">Trending stores this week</h1>
@@ -47,23 +41,7 @@ const Page = () => {
                     }
                     </div>
                 <h1 className="text-2xl font-bold tracking-tight pt-[2.5rem] mt-4">Featured stores</h1>
-                <div className="flex flex-col gap-6 mt-8">
-                    {
-                        storeList.map((product,index) => (
-                        <StoreCard key={index} />
-                        ))
-                    }
-                </div>
-                <h1 className="text-2xl font-bold tracking-tight pt-[2.5rem] mt-4">Clothing Products</h1>
-                <div className="flex flex-col gap-6 mt-8">
-                    {
-                        storeList.map((product,index) => (
-                        <StoreCard key={index} />
-                        ))
-                    }
-                </div>
-                <h1 className="text-2xl font-bold tracking-tight pt-[2.5rem] mt-4">Accessories</h1>
-                <div className="flex flex-col gap-6 mt-8">
+                <div className="flex flex-col gap-6 mt-8 space-y-4">
                     {
                         storeList.map((product,index) => (
                         <StoreCard key={index} />
